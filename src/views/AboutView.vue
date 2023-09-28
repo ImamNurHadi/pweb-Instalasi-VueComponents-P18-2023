@@ -1,15 +1,61 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <Navbar/>
+  <div class="m-5 flex flex-col items-center justify-center gap-5">
+    <div
+      class="block p-6 lg:w-1/2 w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+    >
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="px-6 py-3">Nama</th>
+              <th scope="col" class="px-6 py-3">NRP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+              v-for="(item, index) in asist"
+              :key="index"
+            >
+              <td class="text-left px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {{ item.name }}
+              </td>
+              <td class="text-left px-6 py-4">{{ item.nrp }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+<script>
+import Navbar from '@/components/Navbar.vue';
+
+export default {
+  name: 'AboutView',
+  components: {
+    Navbar
+  },
+  data() {
+    return {
+      asist: [
+        {
+          name: 'M. Arkananta Radithya T.',
+          nrp: 5027221003
+        },
+        {
+          name: 'Imam Nurhadi',
+          nrp: 5027221000
+        },
+        {
+          name: 'Nur Azka Rahadiansyah',
+          nrp: 5027221000
+        },
+      ]
+    };
   }
-}
-</style>
+};
+</script>
+

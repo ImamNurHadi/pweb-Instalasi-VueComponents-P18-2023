@@ -18,10 +18,15 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
     },
+    {
+      path: '/:catchAll(.*)',
+      name: '404',
+      component: () => import('../views/404View.vue')
+    },
 
     {
       path:'/menu',name:'menu',  component: MenuView
-    }
+    },
   ]
 })
 
