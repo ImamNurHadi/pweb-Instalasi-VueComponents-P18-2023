@@ -14,7 +14,7 @@
           </thead>
           <tbody>
             <tr
-              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+              class="bg-gray-800 border-b dark:bg-gray-800 dark:border-gray-700"
               v-for="(item, index) in asist"
               :key="index"
             >
