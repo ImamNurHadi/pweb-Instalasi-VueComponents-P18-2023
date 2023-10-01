@@ -25,6 +25,12 @@ const router = createRouter({
     },
 
     {
+      path: '/review',
+      name: 'review',
+      component: () => import('../views/ReviewView.vue')
+    },
+  
+    {
       path:'/menu',name:'menu',  component: MenuView
     },
   ]

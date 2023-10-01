@@ -39,6 +39,8 @@
                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Calendar</RouterLink>
                 <RouterLink to="/tes" :class="{ 'bg-gray-900 text-white': isRouteActive('/tes') }"  
                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Dashboard</RouterLink>
+                <RouterLink to="/review" :class="{ 'bg-gray-900 text-white': isRouteActive('/tes') }"  
+                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Feedback</RouterLink>
               </div>
             </div>
           </div>
