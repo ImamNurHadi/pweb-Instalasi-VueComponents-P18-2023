@@ -3,12 +3,21 @@
         <div class="bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
             <h1 class="text-3xl font-bold mb-4">Our stock</h1>
             <div>
-                <button @click="showAddProductForm = true" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-md">Add Product</button>
-                <button @click="toggleMakananTable " class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md ml-4"> {{ showMakananTable ? 'Hide Table Makanan' : 'Show Table Makanan' }}</button>
-                <button @click="togglePakaianTable " class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md ml-4">{{ showPakaianTable ? 'Hide Table Pakaian' : 'Show Table Pakaian' }}</button>
+                <button @click="showAddProductForm = true"
+                    class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-md">Add
+                    Product</button>
+                <button @click="toggleMakananTable"
+                    class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md ml-4"> {{
+                        showMakananTable ? 'Hide Electronic' : 'Show Electronic' }}</button>
+                <button @click="togglePakaianTable"
+                    class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md ml-4">{{
+                        showPakaianTable ? 'Hide Wearable' : 'Show Wearable' }}</button>
+                <button @click="toggleAccessoriesTable"
+                    class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md ml-4">{{
+                        showAccessoriesTable ? 'Hide Accessories' : 'Show Accessories' }}</button>
             </div>
         </div>
-        
+
         <div v-if="showAddProductForm" class="bg-white p-4 rounded-lg shadow-lg">
             <form @submit.prevent="addOrUpdateProduct" class="custom-form">
                 <div class="mb-4">
@@ -53,21 +62,21 @@
         </div>
 
         <div v-if="showMakananTable" class="bg-white p-4 rounded-lg shadow-lg mt-4">
-      <h2 class="text-2xl font-semibold mb-2">Makanan</h2>
-      <table class="table-auto w-full">
-        <thead>
+            <h2 class="text-2xl font-semibold mb-2">Electronic</h2>
+            <table class="table-auto w-full">
+                <thead>
                     <tr>
-                        <th class="px-4 py-2">Nama</th>
-                        <th class="px-4 py-2">Tipe</th>
-                        <th class="px-4 py-2">Harga</th>
-                        <th class="px-4 py-2">Jumlah</th>
+                        <th class="px-4 py-2">Name</th>
+                        <th class="px-4 py-2">Type</th>
+                        <th class="px-4 py-2">Price</th>
+                        <th class="px-4 py-2">Quantity</th>
                         <th class="px-4 py-2">Action</th>
                     </tr>
                 </thead>
-        <tbody>
-          <tr v-for="(product, index) in filteredProducts('Makanan')" :key="index"
-            class="bg-white hover:bg-gray-100 transition duration-300 ease-in-out">
-            <td class="px-4 py-2 text-gray-800">{{ product.name }}</td>
+                <tbody>
+                    <tr v-for="(product, index) in filteredProducts('Electronic')" :key="index"
+                        class="bg-white hover:bg-gray-100 transition duration-300 ease-in-out">
+                        <td class="px-4 py-2 text-gray-800">{{ product.name }}</td>
                         <td class="px-4 py-2 text-gray-800">{{ product.type }}</td>
                         <td class="px-4 py-2 text-gray-800">{{ product.price }} Rb</td>
                         <td class="px-4 py-2 text-gray-800">{{ product.quantity }}</td>
@@ -84,27 +93,27 @@
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
                             </div>
                         </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <div v-if="showPakaianTable" class="bg-white p-4 rounded-lg shadow-lg mt-4">
-      <h2 class="text-2xl font-semibold mb-2">Pakaian</h2>
-      <table class="table-auto w-full">
-        <thead>
+        <div v-if="showPakaianTable" class="bg-white p-4 rounded-lg shadow-lg mt-4">
+            <h2 class="text-2xl font-semibold mb-2">Wearable</h2>
+            <table class="table-auto w-full">
+                <thead>
                     <tr>
-                        <th class="px-4 py-2">Nama</th>
-                        <th class="px-4 py-2">Tipe</th>
-                        <th class="px-4 py-2">Harga</th>
-                        <th class="px-4 py-2">Jumlah</th>
+                        <th class="px-4 py-2">Name</th>
+                        <th class="px-4 py-2">Type</th>
+                        <th class="px-4 py-2">Price</th>
+                        <th class="px-4 py-2">Quantity</th>
                         <th class="px-4 py-2">Action</th>
                     </tr>
                 </thead>
-        <tbody>
-          <tr v-for="(product, index) in filteredProducts('Pakaian')" :key="index"
-            class="bg-white hover:bg-gray-100 transition duration-300 ease-in-out">
-            <td class="px-4 py-2 text-gray-800">{{ product.name }}</td>
+                <tbody>
+                    <tr v-for="(product, index) in filteredProducts('Wearable')" :key="index"
+                        class="bg-white hover:bg-gray-100 transition duration-300 ease-in-out">
+                        <td class="px-4 py-2 text-gray-800">{{ product.name }}</td>
                         <td class="px-4 py-2 text-gray-800">{{ product.type }}</td>
                         <td class="px-4 py-2 text-gray-800">{{ product.price }} Rb</td>
                         <td class="px-4 py-2 text-gray-800">{{ product.quantity }}</td>
@@ -121,10 +130,49 @@
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
                             </div>
                         </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+        <div v-if="showAccessoriesTable" class="bg-white p-4 rounded-lg shadow-lg mt-4">
+            <h2 class="text-2xl font-semibold mb-2">Accessories</h2>
+            <table class="table-auto w-full">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2">Name</th>
+                        <th class="px-4 py-2">Type</th>
+                        <th class="px-4 py-2">Price</th>
+                        <th class="px-4 py-2">Quantity</th>
+                        <th class="px-4 py-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(product, index) in filteredProducts('Accessories')" :key="index"
+                        class="bg-white hover:bg-gray-100 transition duration-300 ease-in-out">
+                        <td class="px-4 py-2 text-gray-800">{{ product.name }}</td>
+                        <td class="px-4 py-2 text-gray-800">{{ product.type }}</td>
+                        <td class="px-4 py-2 text-gray-800">{{ product.price }} Rb</td>
+                        <td class="px-4 py-2 text-gray-800">{{ product.quantity }}</td>
+                        <td class="px-4 py-2 flex items-center">
+                            <button @click="editProduct(index)"
+                                class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-2 py-1 rounded-md  transition duration-300 ease-in-out">
+                                Edit
+                            </button>
+                            <button @click="deleteProduct(index)"
+                                class="bg-red-500 hover:bg-red-600 text-white font-semibold px-2 py-1 ml-1 rounded-md transition duration-300 ease-in-out">
+                                Delete
+                            </button>
+                            <div class="form-check ml-2">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
 
 
 
@@ -133,10 +181,10 @@
             <table class="table-auto w-full">
                 <thead>
                     <tr>
-                        <th class="px-4 py-2">Nama</th>
-                        <th class="px-4 py-2">Tipe</th>
-                        <th class="px-4 py-2">Harga</th>
-                        <th class="px-4 py-2">Jumlah</th>
+                        <th class="px-4 py-2">Name</th>
+                        <th class="px-4 py-2">Type</th>
+                        <th class="px-4 py-2">Price</th>
+                        <th class="px-4 py-2">Quantity</th>
                         <th class="px-4 py-2">Action</th>
                     </tr>
                 </thead>
@@ -184,17 +232,18 @@ select {
 export default {
     data() {
         return {
-            products: [], 
-            showAddProductForm: false, 
-            showMakananTable: false,
-            showPakaianTable: false,
+            products: [],
+            showAddProductForm: false,
+            showMakananTable: true,
+            showPakaianTable: true,
+            showAccessoriesTable: true,
             newProduct: {
                 name: "",
                 type: "",
                 price: 0,
                 quantity: 0,
             },
-            editingIndex: null, 
+            editingIndex: null,
         };
     },
     created() {
@@ -204,13 +253,11 @@ export default {
         }
     },
     methods: {
-        filteredProducts(type) 
-        {
+        filteredProducts(type) {
             return this.products.filter(product => product.type === type);
         },
 
-        addOrUpdateProduct() 
-        {
+        addOrUpdateProduct() {
             if (this.editingIndex !== null) {
                 this.products.splice(this.editingIndex, 1, { ...this.newProduct });
                 this.editingIndex = null;
@@ -230,27 +277,29 @@ export default {
         },
 
 
-        toggleMakananTable() 
-        {
-        this.showMakananTable = !this.showMakananTable;
+        toggleMakananTable() {
+            this.showMakananTable = !this.showMakananTable;
         },
 
-    togglePakaianTable() 
-        {
-        this.showPakaianTable = !this.showPakaianTable;
+        togglePakaianTable() {
+            this.showPakaianTable = !this.showPakaianTable;
+        },
+
+        toggleAccessoriesTable() {
+            this.showAccessoriesTable = !this.showAccessoriesTable;
         },
 
         cancelForm() {
-        this.showAddProductForm = false;
-        // Reset nilai newProduct dan editingIndex jika perlu
-        this.newProduct = {
-            name: "",
-            type: "",
-            price: 0,
-            quantity: 0,
-        };
-        this.editingIndex = null;
-            },
+            this.showAddProductForm = false;
+            // Reset nilai newProduct dan editingIndex jika perlu
+            this.newProduct = {
+                name: "",
+                type: "",
+                price: 0,
+                quantity: 0,
+            };
+            this.editingIndex = null;
+        },
 
 
         editProduct(index) {
