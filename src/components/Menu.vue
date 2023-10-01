@@ -1,63 +1,74 @@
 <template>
-    <div class="container">
-        <div class="container-teks">
-            Welcome To Our Store!
+    <div class="container mx-auto p-4">
+        <div class="bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
+            <h1 class="text-3xl font-bold mb-4">Welcome To Our Store!</h1>
             <div>
-                <button @click="showAddProductForm = true" class="btn btn-success">Add Product</button>
+                <button @click="showAddProductForm = true"
+                    class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-md">Add
+                    Product</button>
             </div>
         </div>
 
-        <!-- Jika klik add product -->
-        <div v-if="showAddProductForm" class="add-product-form">
+        <div v-if="showAddProductForm" class="bg-white p-4 rounded-lg shadow-lg">
             <form @submit.prevent="addOrUpdateProduct">
-                <div class="form-group">
-                    <label for="productName">Product Name</label>
-                    <input v-model="newProduct.name" type="text" class="form-control" id="productName" required>
+                <div class="mb-4">
+                    <label for="productName" class="block text-sm font-medium text-gray-600">Product Name</label>
+                    <input v-model="newProduct.name" type="text" id="productName"
+                        class="form-input mt-1 block w-full rounded-md border-gray-300">
                 </div>
-                <div class="form-group">
-                    <label for="productType">Product Type</label>
-                    <select v-model="newProduct.type" class="form-control" id="productType">
+                <div class="mb-4">
+                    <label for="productType" class="block text-sm font-medium text-gray-600">Product Type</label>
+                    <select v-model="newProduct.type" id="productType"
+                        class="form-select mt-1 block w-full rounded-md border-gray-300">
                         <option value="Makanan">Makanan</option>
                         <option value="Pakaian">Pakaian</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="productPrice">Product Price</label>
-                    <input v-model.number="newProduct.price" type="number" class="form-control" id="productPrice" required>
+                <div class="mb-4">
+                    <label for="productPrice" class="block text-sm font-medium text-gray-600">Product Price</label>
+                    <input v-model.number="newProduct.price" type="number" id="productPrice"
+                        class="form-input mt-1 block w-full rounded-md border-gray-300">
                 </div>
-                <div class="form-group">
-                    <label for="productQuantity">Product Quantity</label>
-                    <input v-model.number="newProduct.quantity" type="number" class="form-control" id="productQuantity" required>
+                <div class="mb-4">
+                    <label for="productQuantity" class="block text-sm font-medium text-gray-600">Product Quantity</label>
+                    <input v-model.number="newProduct.quantity" type="number" id="productQuantity"
+                        class="form-input mt-1 block w-full rounded-md border-gray-300">
                 </div>
-                <button type="submit" class="btn btn-primary">{{ editingIndex !== null ? 'Save' : 'Add' }}</button>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md">{{
+                    editingIndex !== null ? 'Save' : 'Add' }}</button>
             </form>
         </div>
 
-        <div class="container-card">
-            <table class="table-auto">
+        <div class="bg-white p-4 rounded-lg shadow-lg">
+            <table class="table-auto w-full">
                 <thead>
                     <tr>
-                        <th>Nama</th>
-                        <th>Tipe</th>
-                        <th>Harga</th>
-                        <th>Jumlah</th>
-                        <th>Action</th>
+                        <th class="px-4 py-2">Nama</th>
+                        <th class="px-4 py-2">Tipe</th>
+                        <th class="px-4 py-2">Harga</th>
+                        <th class="px-4 py-2">Jumlah</th>
+                        <th class="px-4 py-2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(product, index) in products" :key="index">
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.type }}</td>
-                        <td>{{ product.price }}</td>
-                        <td>{{ product.quantity }}</td>
-                        <td>
-                            <div class="form-check">
+                    <tr v-for="(product, index) in products" :key="index"
+                        class="bg-white hover:bg-gray-100 transition duration-300 ease-in-out">
+                        <td class="px-4 py-2 text-gray-800">{{ product.name }}</td>
+                        <td class="px-4 py-2 text-gray-800">{{ product.type }}</td>
+                        <td class="px-4 py-2 text-gray-800">{{ product.price }}</td>
+                        <td class="px-4 py-2 text-gray-800">{{ product.quantity }}</td>
+                        <td class="px-4 py-2 flex items-center">
+                            <button @click="editProduct(index)"
+                                class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-2 py-1 rounded-md ml-2 transition duration-300 ease-in-out">
+                                Edit
+                            </button>
+                            <button @click="deleteProduct(index)"
+                                class="bg-red-500 hover:bg-red-600 text-white font-semibold px-2 py-1 rounded-md ml-2 transition duration-300 ease-in-out">
+                                Delete
+                            </button>
+                            <div class="form-check ml-2">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
                             </div>
-                        </td>
-                        <td>
-                            <button @click="editProduct(index)" class="btn btn-primary">Edit</button>
-                            <button @click="deleteProduct(index)" class="btn btn-danger">Delete</button>
                         </td>
                     </tr>
                 </tbody>
@@ -65,68 +76,7 @@
         </div>
     </div>
 </template>
-
-
-<style>
-    .container
-    {
-        display: flex;
-        flex-direction: column; /* Mengatur tata letak elemen vertikal */
-        align-items: center; /* Mengatur konten di tengah horizontal */
-        height: 100vh; /* Untuk mengisi tinggi layar secara penuh */
-    }
-    .container-teks
-    {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 20%;
-        height: 20%;
-        margin-top: 1%;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        
-    }
-    .container-card
-    {
-        display: flex;
-        max-width: 80%;
-        padding: 1%;
-        width: auto;
-        height: auto; 
-        margin-top: 5%;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    }
-
-    .add-product-form
-    {
-        display: flex;
-        justify-content: center;
-
-        width: 50vh;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;   
-    }
-
-    table {
-    width: 100%; /* Mengisi lebar tabel ke seluruh lebar kontainer */
-  }
-
-  table, th {
-    padding: 10px; /* Mengatur jarak dalam sel */
-    text-align: center; /* Mengatur teks menjadi rata tengah */
-  }
-
-  tr:first-child {
-    font-weight: bold; /* Menambahkan tebal pada teks pada baris pertama */
-  }
-
-  button.tadd
-  {
-    background-color: red;
-    border-radius: 2vh;
-  }
-</style>
-
+  
 <script>
 export default {
     data() {
@@ -179,3 +129,5 @@ export default {
     },
 };
 </script>
+  
+  
