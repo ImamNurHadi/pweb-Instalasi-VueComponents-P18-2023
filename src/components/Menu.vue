@@ -1,45 +1,54 @@
 <template>
     <div class="container mx-auto p-4">
         <div class="bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
-            <h1 class="text-3xl font-bold mb-4">Welcome To Our Store!</h1>
+            <h1 class="text-3xl font-bold mb-4">Our stock</h1>
             <div>
                 <button @click="showAddProductForm = true"
                     class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-md">Add
                     Product</button>
-                    
+
             </div>
         </div>
-
+        
         <div v-if="showAddProductForm" class="bg-white p-4 rounded-lg shadow-lg">
             <form @submit.prevent="addOrUpdateProduct" class="custom-form">
                 <div class="mb-4">
-                    <label for="productName" class="block text-sm font-medium text-gray-600"  >Product Name</label>
+                    <label for="productName" class="block text-sm font-medium text-gray-600">Product Name</label>
                     <input v-model="newProduct.name" type="text" id="productName"
-                        class="form-input mt-1 block w-full rounded-md ">
+                        class="form-input mt-1 block w-full rounded-md pl-3">
                 </div>
                 <div class="mb-4">
                     <label for="productType" class="block text-sm font-medium text-gray-600">Product Type</label>
-                    <select v-model="newProduct.type" id="productType"
-                        class="form-select mt-1 block w-full rounded-md ">
-                        <option value="Makanan">Makanan</option>
-                        <option value="Pakaian">Pakaian</option>
+                    <select v-model="newProduct.type" id="productType" class="form-select mt-1 block w-full rounded-md ">
+                        <option value="Electronic">Electronic</option>
+                        <option value="Wearable">Wearable</option>
+                        <option value="Accessories">Accessories</option>
                     </select>
                 </div>
                 <div class="mb-4">
                     <label for="productPrice" class="block text-sm font-medium text-gray-600">Product Price</label>
-                    <input v-model.number="newProduct.price" type="number" id="productPrice"
-                        class="form-input mt-1 block w-full rounded-md ">
+                    <select v-model.number="newProduct.price" id="productPrice"
+                        class="form-select mt-1 block w-full rounded-md">
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="25">25</option>
+                        <option value="30">30</option>
+                    </select>
                 </div>
+
                 <div class="mb-4">
                     <label for="productQuantity" class="block text-sm font-medium text-gray-600">Product Quantity</label>
                     <input v-model.number="newProduct.quantity" type="number" id="productQuantity"
-                        class="form-input mt-1 block w-full rounded-md ">
+                        class="form-input mt-1 block w-full rounded-md pl-3 py">
                 </div>
-                <button type="submit" class="bg-green-600 hover:bg-green-500 text-white font-semibold px-4 py-2 rounded-md">{{
-                    editingIndex !== null ? 'Save' : 'Add' }}</button>
-                <button type="button" @click="cancelForm" class="bg-gray-500 hover:bg-red-500 text-white font-semibold px-4 py-2 rounded-md ml-2" style="width: 50%;">
-                   Cancel
-        </button>
+                <button type="submit"
+                    class="bg-green-600 hover:bg-green-500 text-white font-semibold px-4 py-2 rounded-md">{{
+                        editingIndex !== null ? 'Save' : 'Add' }}</button>
+                <button type="button" @click="cancelForm"
+                    class="bg-gray-500 hover:bg-red-500 text-white font-semibold px-4 py-2 rounded-md ml-2">
+                    Cancel
+                </button>
 
             </form>
         </div>
@@ -60,7 +69,7 @@
                         class="bg-white hover:bg-gray-100 transition duration-300 ease-in-out">
                         <td class="px-4 py-2 text-gray-800">{{ product.name }}</td>
                         <td class="px-4 py-2 text-gray-800">{{ product.type }}</td>
-                        <td class="px-4 py-2 text-gray-800">{{ product.price }} Rb</td>
+                        <td class="px-4 py-2 text-gray-800">$ {{ product.price }}</td>
                         <td class="px-4 py-2 text-gray-800">{{ product.quantity }}</td>
                         <td class="px-4 py-2 flex items-center">
                             <button @click="editProduct(index)"
@@ -84,15 +93,14 @@
   
 
 <style>
-input{
-  border-color: black;
-  border-width:0.1vh;
+input {
+    border-color: black;
+    border-width: 0.1vh;
 }
 
-select
-{
-  border-color: black;
-  border-width:0.1vh;
+select {
+    border-color: black;
+    border-width: 0.1vh;
 }
 </style>
 
@@ -141,18 +149,18 @@ export default {
             this.showAddProductForm = false;
             localStorage.setItem('products', JSON.stringify(this.products));
         },
-        
+
         cancelForm() {
-        this.showAddProductForm = false;
-        // Reset nilai newProduct dan editingIndex jika perlu
-        this.newProduct = {
-            name: "",
-            type: "",
-            price: 0,
-            quantity: 0,
-        };
-        this.editingIndex = null;
-            },
+            this.showAddProductForm = false;
+            // Reset nilai newProduct dan editingIndex jika perlu
+            this.newProduct = {
+                name: "",
+                type: "",
+                price: 0,
+                quantity: 0,
+            };
+            this.editingIndex = null;
+        },
 
 
         editProduct(index) {
@@ -168,8 +176,8 @@ export default {
             this.products.splice(index, 1);
             localStorage.setItem('products', JSON.stringify(this.products));
         },
-        },
-        };
+    },
+};
 </script>
   
   
