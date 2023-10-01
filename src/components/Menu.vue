@@ -44,7 +44,85 @@
             </form>
         </div>
 
+
         <div class="bg-white p-4 rounded-lg shadow-lg mt-4">
+      <h2 class="text-2xl font-semibold mb-2">Makanan</h2>
+      <table class="table-auto w-full">
+        <thead>
+                    <tr>
+                        <th class="px-4 py-2">Nama</th>
+                        <th class="px-4 py-2">Tipe</th>
+                        <th class="px-4 py-2">Harga</th>
+                        <th class="px-4 py-2">Jumlah</th>
+                        <th class="px-4 py-2">Action</th>
+                    </tr>
+                </thead>
+        <tbody>
+          <tr v-for="(product, index) in filteredProducts('Makanan')" :key="index"
+            class="bg-white hover:bg-gray-100 transition duration-300 ease-in-out">
+            <td class="px-4 py-2 text-gray-800">{{ product.name }}</td>
+                        <td class="px-4 py-2 text-gray-800">{{ product.type }}</td>
+                        <td class="px-4 py-2 text-gray-800">{{ product.price }} Rb</td>
+                        <td class="px-4 py-2 text-gray-800">{{ product.quantity }}</td>
+                        <td class="px-4 py-2 flex items-center">
+                            <button @click="editProduct(index)"
+                                class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-2 py-1 rounded-md  transition duration-300 ease-in-out">
+                                Edit
+                            </button>
+                            <button @click="deleteProduct(index)"
+                                class="bg-red-500 hover:bg-red-600 text-white font-semibold px-2 py-1 ml-1 rounded-md transition duration-300 ease-in-out">
+                                Delete
+                            </button>
+                            <div class="form-check ml-2">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                            </div>
+                        </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bg-white p-4 rounded-lg shadow-lg mt-4">
+      <h2 class="text-2xl font-semibold mb-2">Pakaian</h2>
+      <table class="table-auto w-full">
+        <thead>
+                    <tr>
+                        <th class="px-4 py-2">Nama</th>
+                        <th class="px-4 py-2">Tipe</th>
+                        <th class="px-4 py-2">Harga</th>
+                        <th class="px-4 py-2">Jumlah</th>
+                        <th class="px-4 py-2">Action</th>
+                    </tr>
+                </thead>
+        <tbody>
+          <tr v-for="(product, index) in filteredProducts('Pakaian')" :key="index"
+            class="bg-white hover:bg-gray-100 transition duration-300 ease-in-out">
+            <td class="px-4 py-2 text-gray-800">{{ product.name }}</td>
+                        <td class="px-4 py-2 text-gray-800">{{ product.type }}</td>
+                        <td class="px-4 py-2 text-gray-800">{{ product.price }} Rb</td>
+                        <td class="px-4 py-2 text-gray-800">{{ product.quantity }}</td>
+                        <td class="px-4 py-2 flex items-center">
+                            <button @click="editProduct(index)"
+                                class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-2 py-1 rounded-md  transition duration-300 ease-in-out">
+                                Edit
+                            </button>
+                            <button @click="deleteProduct(index)"
+                                class="bg-red-500 hover:bg-red-600 text-white font-semibold px-2 py-1 ml-1 rounded-md transition duration-300 ease-in-out">
+                                Delete
+                            </button>
+                            <div class="form-check ml-2">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                            </div>
+                        </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+
+
+        <!-- <div class="bg-white p-4 rounded-lg shadow-lg mt-4">
             <table class="table-auto w-full">
                 <thead>
                     <tr>
@@ -78,7 +156,7 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div> -->
     </div>
 </template>
   
@@ -100,36 +178,36 @@ select
 export default {
     data() {
         return {
-            products: [], // Data produk
-            showAddProductForm: false, // Status tampilan form tambah produk
+            products: [], 
+            showAddProductForm: false, 
             newProduct: {
                 name: "",
                 type: "",
                 price: 0,
                 quantity: 0,
             },
-            editingIndex: null, // Indeks produk yang sedang diedit
+            editingIndex: null, 
         };
     },
     created() {
-        // Load products from local storage when the component is created
         const savedProducts = localStorage.getItem('products');
         if (savedProducts) {
             this.products = JSON.parse(savedProducts);
         }
     },
     methods: {
+        filteredProducts(type) {
+            return this.products.filter(product => product.type === type);
+        },
+
         addOrUpdateProduct() {
             if (this.editingIndex !== null) {
-                // Mengganti data produk yang lama dengan data produk yang telah diedit
                 this.products.splice(this.editingIndex, 1, { ...this.newProduct });
                 this.editingIndex = null;
             } else {
-                // Tambahkan produk baru ke dalam array
                 this.products.push({ ...this.newProduct });
             }
 
-            // Reset data produk baru
             this.newProduct = {
                 name: "",
                 type: "",
@@ -137,14 +215,12 @@ export default {
                 quantity: 0,
             };
 
-            // Tutup form setelah produk ditambahkan atau diedit
             this.showAddProductForm = false;
             localStorage.setItem('products', JSON.stringify(this.products));
         },
         
         cancelForm() {
         this.showAddProductForm = false;
-        // Reset nilai newProduct dan editingIndex jika perlu
         this.newProduct = {
             name: "",
             type: "",
@@ -156,15 +232,11 @@ export default {
 
 
         editProduct(index) {
-            // Mengisi data produk baru dengan data produk yang akan diedit
             this.newProduct = { ...this.products[index] };
-            // Menyimpan indeks produk yang sedang diedit
             this.editingIndex = index;
-            // Menampilkan form tambah produk
             this.showAddProductForm = true;
         },
         deleteProduct(index) {
-            // Menghapus produk dari array berdasarkan indeks
             this.products.splice(index, 1);
             localStorage.setItem('products', JSON.stringify(this.products));
         },
