@@ -3,10 +3,9 @@
         <div class="bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
             <h1 class="text-3xl font-bold mb-4">Our stock</h1>
             <div>
-                <button @click="showAddProductForm = true"
-                    class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-md">Add
-                    Product</button>
-
+                <button @click="showAddProductForm = true" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-md">Add Product</button>
+                <button @click="toggleMakananTable " class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md ml-4"> {{ showMakananTable ? 'Hide Table Makanan' : 'Show Table Makanan' }}</button>
+                <button @click="togglePakaianTable " class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md ml-4">{{ showPakaianTable ? 'Hide Table Pakaian' : 'Show Table Pakaian' }}</button>
             </div>
         </div>
         
@@ -53,8 +52,7 @@
             </form>
         </div>
 
-
-        <div class="bg-white p-4 rounded-lg shadow-lg mt-4">
+        <div v-if="showMakananTable" class="bg-white p-4 rounded-lg shadow-lg mt-4">
       <h2 class="text-2xl font-semibold mb-2">Makanan</h2>
       <table class="table-auto w-full">
         <thead>
@@ -91,7 +89,7 @@
       </table>
     </div>
 
-    <div class="bg-white p-4 rounded-lg shadow-lg mt-4">
+    <div v-if="showPakaianTable" class="bg-white p-4 rounded-lg shadow-lg mt-4">
       <h2 class="text-2xl font-semibold mb-2">Pakaian</h2>
       <table class="table-auto w-full">
         <thead>
@@ -188,6 +186,8 @@ export default {
         return {
             products: [], 
             showAddProductForm: false, 
+            showMakananTable: false,
+            showPakaianTable: false,
             newProduct: {
                 name: "",
                 type: "",
@@ -204,11 +204,13 @@ export default {
         }
     },
     methods: {
-        filteredProducts(type) {
+        filteredProducts(type) 
+        {
             return this.products.filter(product => product.type === type);
         },
 
-        addOrUpdateProduct() {
+        addOrUpdateProduct() 
+        {
             if (this.editingIndex !== null) {
                 this.products.splice(this.editingIndex, 1, { ...this.newProduct });
                 this.editingIndex = null;
@@ -225,6 +227,17 @@ export default {
 
             this.showAddProductForm = false;
             localStorage.setItem('products', JSON.stringify(this.products));
+        },
+
+
+        toggleMakananTable() 
+        {
+        this.showMakananTable = !this.showMakananTable;
+        },
+
+    togglePakaianTable() 
+        {
+        this.showPakaianTable = !this.showPakaianTable;
         },
 
         cancelForm() {
