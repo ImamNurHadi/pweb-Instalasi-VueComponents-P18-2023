@@ -92,6 +92,13 @@ export default {
             editingIndex: null, // Indeks produk yang sedang diedit
         };
     },
+    created() {
+        // Load products from local storage when the component is created
+        const savedProducts = localStorage.getItem('products');
+        if (savedProducts) {
+            this.products = JSON.parse(savedProducts);
+        }
+    },
     methods: {
         addOrUpdateProduct() {
             if (this.editingIndex !== null) {
@@ -113,7 +120,9 @@ export default {
 
             // Tutup form setelah produk ditambahkan atau diedit
             this.showAddProductForm = false;
+            localStorage.setItem('products', JSON.stringify(this.products));
         },
+        
         editProduct(index) {
             // Mengisi data produk baru dengan data produk yang akan diedit
             this.newProduct = { ...this.products[index] };
@@ -125,6 +134,7 @@ export default {
         deleteProduct(index) {
             // Menghapus produk dari array berdasarkan indeks
             this.products.splice(index, 1);
+            localStorage.setItem('products', JSON.stringify(this.products));
         },
     },
 };
