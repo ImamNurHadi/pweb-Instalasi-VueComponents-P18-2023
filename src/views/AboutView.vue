@@ -14,7 +14,7 @@
           </thead>
           <tbody>
             <tr
-              class="bg-gray-800 border-b dark:bg-gray-800 dark:border-gray-700"
+              class="border-b dark:bg-gray-800 dark:border-gray-700"
               v-for="(item, index) in asist"
               :key="index"
             >
@@ -47,11 +47,11 @@ export default {
         },
         {
           name: 'Imam Nurhadi',
-          nrp: 5027221000
+          nrp: 5027221046
         },
         {
           name: 'Nur Azka Rahadiansyah',
-          nrp: 5027221000
+          nrp: 5027221064
         },
       ]
     };
