@@ -6,6 +6,7 @@
                 <button @click="showAddProductForm = true"
                     class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-md">Add
                     Product</button>
+                    
             </div>
         </div>
 
@@ -34,8 +35,12 @@
                     <input v-model.number="newProduct.quantity" type="number" id="productQuantity"
                         class="form-input mt-1 block w-full rounded-md ">
                 </div>
-                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md">{{
+                <button type="submit" class="bg-green-600 hover:bg-green-500 text-white font-semibold px-4 py-2 rounded-md">{{
                     editingIndex !== null ? 'Save' : 'Add' }}</button>
+                <button type="button" @click="cancelForm" class="bg-gray-500 hover:bg-red-500 text-white font-semibold px-4 py-2 rounded-md ml-2" style="width: 50%;">
+                   Cancel
+        </button>
+
             </form>
         </div>
 
@@ -63,7 +68,7 @@
                                 Edit
                             </button>
                             <button @click="deleteProduct(index)"
-                                class="bg-red-500 hover:bg-red-600 text-white font-semibold px-2 py-1 rounded-md transition duration-300 ease-in-out">
+                                class="bg-red-500 hover:bg-red-600 text-white font-semibold px-2 py-1 ml-1 rounded-md transition duration-300 ease-in-out">
                                 Delete
                             </button>
                             <div class="form-check ml-2">
@@ -137,6 +142,19 @@ export default {
             localStorage.setItem('products', JSON.stringify(this.products));
         },
         
+        cancelForm() {
+        this.showAddProductForm = false;
+        // Reset nilai newProduct dan editingIndex jika perlu
+        this.newProduct = {
+            name: "",
+            type: "",
+            price: 0,
+            quantity: 0,
+        };
+        this.editingIndex = null;
+            },
+
+
         editProduct(index) {
             // Mengisi data produk baru dengan data produk yang akan diedit
             this.newProduct = { ...this.products[index] };
@@ -150,8 +168,8 @@ export default {
             this.products.splice(index, 1);
             localStorage.setItem('products', JSON.stringify(this.products));
         },
-    },
-};
+        },
+        };
 </script>
   
   
