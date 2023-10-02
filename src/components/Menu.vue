@@ -85,7 +85,7 @@
                                 class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-2 py-1 rounded-md  transition duration-300 ease-in-out">
                                 Edit
                             </button>
-                            <button @click="deleteProduct(index)"
+                            <button @click="deleteProduct(product.id)"
                                 class="bg-red-500 hover:bg-red-600 text-white font-semibold px-2 py-1 ml-1 rounded-md transition duration-300 ease-in-out">
                                 Delete
                             </button>
@@ -122,7 +122,7 @@
                                 class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-2 py-1 rounded-md  transition duration-300 ease-in-out">
                                 Edit
                             </button>
-                            <button @click="deleteProduct(index)"
+                            <button @click="deleteProduct(product.id)"
                                 class="bg-red-500 hover:bg-red-600 text-white font-semibold px-2 py-1 ml-1 rounded-md transition duration-300 ease-in-out">
                                 Delete
                             </button>
@@ -160,7 +160,7 @@
                                 class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-2 py-1 rounded-md  transition duration-300 ease-in-out">
                                 Edit
                             </button>
-                            <button @click="deleteProduct(index)"
+                            <button @click="deleteProduct(product.id)"
                                 class="bg-red-500 hover:bg-red-600 text-white font-semibold px-2 py-1 ml-1 rounded-md transition duration-300 ease-in-out">
                                 Delete
                             </button>
@@ -238,6 +238,7 @@ export default {
             showPakaianTable: true,
             showAccessoriesTable: true,
             newProduct: {
+                id: null,
                 name: "",
                 type: "",
                 price: 0,
@@ -262,7 +263,8 @@ export default {
                 this.products.splice(this.editingIndex, 1, { ...this.newProduct });
                 this.editingIndex = null;
             } else {
-                this.products.push({ ...this.newProduct });
+                const newId = Date.now(); // Generate a unique id
+                this.products.push({ ...this.newProduct, id: newId }); // Set the id
             }
 
             this.newProduct = {
@@ -307,10 +309,13 @@ export default {
             this.editingIndex = index;
             this.showAddProductForm = true;
         },
-        deleteProduct(index) {
-            this.products.splice(index, 1);
-            localStorage.setItem('products', JSON.stringify(this.products));
-        },
+        deleteProduct(id) {
+            const index = this.products.findIndex(product => product.id === id);
+            if (index !== -1) {
+                this.products.splice(index, 1);
+                localStorage.setItem('products', JSON.stringify(this.products));
+            }
+        }
     },
 };
 </script>
