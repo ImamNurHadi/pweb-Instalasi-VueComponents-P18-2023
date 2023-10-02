@@ -19,7 +19,7 @@
         reviewTitle: "",
         reviewContent: "",
         reviewRating: 1,
-        reviews: JSON.parse(localStorage.getItem('reviews') || '[]') // Mendapatkan ulasan dari local storage saat komponen dimuat
+        reviews: JSON.parse(localStorage.getItem('reviews') || '[]') 
       };
     },
     methods: {
@@ -29,15 +29,14 @@
       content: this.reviewContent,
       rating: this.reviewRating
     };
-    // Mengirim ulasan baru ke komponen induk menggunakan emit
+   
     this.$emit('review-submitted', newReview);
-    // Menyimpan ulasan baru ke array ulasan lokal
     this.reviews.push(newReview);
     // Reset formulir ulasan
     this.reviewTitle = "";
     this.reviewContent = "";
     this.reviewRating = 1;
-    // Menyimpan ulasan ke local storage saat formulir dikirim
+   
     this.SaveReview();
   },
   SaveReview() {

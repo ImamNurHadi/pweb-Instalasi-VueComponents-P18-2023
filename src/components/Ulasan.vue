@@ -64,7 +64,7 @@
     this.reviewTitle = "";
     this.reviewContent = "";
     this.reviewRating = 1;
-    // Menyimpan ulasan ke local storage saat formulir dikirim
+  
     this.SaveReview();
     alert('Ulasan berhasil disimpan.');
   },
