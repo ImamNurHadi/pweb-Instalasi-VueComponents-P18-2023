@@ -241,8 +241,8 @@ export default {
                 id: null,
                 name: "",
                 type: "",
-                price: 0,
-                quantity: 0,
+                price: "",
+                quantity: "",
             },
             editingIndex: null,
         };
@@ -259,23 +259,27 @@ export default {
         },
 
         addOrUpdateProduct() {
-            if (this.editingIndex !== null) {
-                this.products.splice(this.editingIndex, 1, { ...this.newProduct });
-                this.editingIndex = null;
-            } else {
-                const newId = Date.now(); // Generate a unique id
-                this.products.push({ ...this.newProduct, id: newId }); // Set the id
-            }
+            if (this.newProduct.price >= 0 && this.newProduct.quantity >= 0) {
+                if (this.editingIndex !== null) {
+                    this.products.splice(this.editingIndex, 1, { ...this.newProduct });
+                    this.editingIndex = null;
+                } else {
+                    const newId = Date.now(); // Generate a unique id
+                    this.products.push({ ...this.newProduct, id: newId }); // Set the id 
+		    }
 
             this.newProduct = {
                 name: "",
                 type: "",
-                price: 0,
-                quantity: 0,
+                price: "",
+                quantity: "",
             };
 
             this.showAddProductForm = false;
-            localStorage.setItem('products', JSON.stringify(this.products));
+	        localStorage.setItem('products', JSON.stringify(this.products));
+            } else {
+            alert('Masukkkan format yang valid!');
+            }
         },
 
 
