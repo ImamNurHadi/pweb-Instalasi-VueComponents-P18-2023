@@ -40,6 +40,8 @@
   </template>
   
   <script>
+
+  import axios from 'axios';
   export default {
     data() {
       return {
@@ -55,7 +57,25 @@
       title: this.reviewTitle,
       content: this.reviewContent,
       rating: this.reviewRating
-    };
+      };
+
+      axios.post('/api/validate-text', { text: this.reviewContent })
+      .then(response => {
+        // Memeriksa status respons dari server
+        if (response.status === 200) {
+          // Jika teks valid, lanjutkan dengan mengirim ulasan
+          this.$emit('review-submitted', newReview);
+          this.SaveReview();
+          alert('Ulasan berhasil disimpan.');
+        } else if (response.status === 403) {
+          // Jika mengandung kata-kata buruk, tampilkan halaman pesan kesalahan
+          this.$router.push('/badword');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
     // Mengirim ulasan baru ke komponen induk menggunakan emit
     this.$emit('review-submitted', newReview);
     // Menyimpan ulasan baru ke array ulasan lokal

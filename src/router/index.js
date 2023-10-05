@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import MenuView from '../views/MenuView.vue'
+import BadWords from '../views/BadWordsView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
   
     {
       path:'/menu',name:'menu',  component: MenuView
+    },
+    {
+      path: '/badword',
+      name: 'BadWords',
+      component: BadWords,
     },
   ]
 })
